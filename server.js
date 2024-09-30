@@ -23,6 +23,17 @@ app.get('/users', (req, res) => {
   res.json(users);
 });
 
+app.get('/users/:id', (req, res) => {
+  const userId = parseInt(req.params.id, 10);
+  const user = users.find(u => u.id === userId);
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).json({ message: 'User not found' });
+  }
+});
+
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT} in ${environment} mode.`);
